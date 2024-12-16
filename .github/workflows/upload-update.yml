@@ -16,8 +16,8 @@ jobs:
     - name: Read Version
       id: get_version
       run: |
-	VERSION=$(ls build/ | awk -F'-v' '{print $2}' | head -n 1)
-	echo "VERSION=$VERSION" >> $GITHUB_ENV
+        VERSION=$(ls build/ | awk -F'-v' '{print $2}' | head -n 1)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Upload to S3
       run: |
