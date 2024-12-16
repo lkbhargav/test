@@ -21,8 +21,8 @@ jobs:
 
     - name: Upload to S3
       run: |
-        aws s3 cp ./build/ s3://mask-ota/update-v${{ env.VERSION }}
-        aws s3 cp ./build/ s3://mask-ota/update-latest
+        aws s3 cp ./build/* s3://mask-ota/update-v${{ env.VERSION }}
+        aws s3 cp ./build/* s3://mask-ota/update-latest
 
     - name: Update Versions Metadata
       run: |
