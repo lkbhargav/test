@@ -28,13 +28,13 @@ jobs:
 
     - name: Upload to S3
       run: |
-        aws s3 cp ./build/* s3://mask-ota/update-v${{ env.VERSION }}
-        aws s3 cp ./build/* s3://mask-ota/update-latest
+        aws s3 cp ./build/* s3://mask-ota-testing/update-v${{ env.VERSION }}
+        aws s3 cp ./build/* s3://mask-ota-testing/update-latest
 
     - name: Update Versions Metadata
       run: |
         VERSION=${{ env.VERSION }}
-        aws s3 cp s3://mask-ota/versions.json versions.json || echo '{"latest": "", "versions": {}}' > versions.json
-        jq --arg version "$VERSION" --arg url "https://mask-ota.s3.amazonaws.com/update-v$VERSION" \
+        aws s3 cp s3://mask-ota-testing/versions.json versions.json || echo '{"latest": "", "versions": {}}' > versions.json
+        jq --arg version "$VERSION" --arg url "https://mask-ota-testing.s3.amazonaws.com/update-v$VERSION" \
           '.latest = $version | .versions[$version] = $url' versions.json > updated_versions.json
-        aws s3 cp updated_versions.json s3://mask-ota/versions.json
+        aws s3 cp updated_versions.json s3://mask-ota-testing/versions.json
